@@ -1,0 +1,15 @@
+{% extends 'products/base.html' %}
+{% block content %}
+<h4>Return Product</h4>
+
+<p><strong>{{ product.name }}</strong></p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.return_quantity.label_tag }}
+    {{ form.return_quantity }}
+
+    <br><br>
+    <button class="btn btn-success">Return</button>
+</form>
+{% endblock %}

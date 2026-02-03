@@ -1,0 +1,50 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4>Daily Sales Report</h4>
+        <span class="text-muted">Date: {{ date }}</span>
+    </div>
+
+    <div class="mb-3">
+        <p class="mb-0"><strong>Total Quantity Sold:</strong> <span class="badge bg-primary">{{ total_qty }}</span></p>
+        <p class="mb-0"><strong>Total Sales:</strong> <span class="badge bg-success">${{ total_sales|floatformat:2 }}</span></p>
+        <a href="{% url 'export_daily_sales_csv' %}" class="btn btn-warning btn-sm mt-4">
+        Download Excel (CSV)
+        </a>
+
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in issue_data %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ i.product.name }}</td>
+                    <td>{{ i.quantity }}</td>
+                    <td>${{ i.unit_price|floatformat:2 }}</td>
+                    <td>${{ i.total|floatformat:2 }}</td>
+                    <td>{{ i.time|time:"H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center text-muted">No sales recorded today</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

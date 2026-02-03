@@ -1,0 +1,35 @@
+{% extends 'products/base.html' %}
+{% block title %}Issue Product{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-warning">
+                <h5 class="mb-0">Issue Product</h5>
+            </div>
+            <div class="card-body">
+
+                <p><strong>Product:</strong> {{ product.name }}</p>
+                <p><strong>Available Quantity:</strong> {{ product.quantity }}</p>
+
+                {% if error %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">Issue Quantity</label>
+                        {{ form.issued_quantity }}
+                    </div>
+
+                    <button type="submit" class="btn btn-warning">Issue</button>
+                    <a href="{% url 'product_list' %}" class="btn btn-secondary">Cancel</a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

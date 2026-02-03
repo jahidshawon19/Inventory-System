@@ -1,0 +1,41 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4>Daily Issue Report</h4>
+        <span class="text-muted">Date: {{ today }}</span>
+    </div>
+
+    <div class="mb-3">
+        <p class="mb-0"><strong>Total Issued:</strong> <span class="badge bg-primary">{{ total_issued }}</span></p>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in issues %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ i.product.name }}</td>
+                    <td>{{ i.issued_quantity }}</td>
+                    <td>{{ i.issued_date|time:"H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center text-muted">No issues recorded today</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

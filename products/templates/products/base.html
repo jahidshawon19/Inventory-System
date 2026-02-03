@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Inventory System{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="{% url 'product_list' %}">
+      <i class="bi bi-box-seam"></i> Arfaana Inventory
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        {% if user.is_authenticated %}
+        <!-- Products -->
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'product_list' %}active{% endif %}" href="{% url 'product_list' %}">
+            <i class="bi bi-list-ul"></i> Products
+          </a>
+        </li>
+ 
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'product_create' %}active{% endif %}" href="{% url 'product_create' %}">
+            <i class="bi bi-plus-square"></i> Add Product
+          </a>
+        </li>
+
+        <!-- Issues -->
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'issue_history' %}active{% endif %}" href="{% url 'issue_history' %}">
+            <i class="bi bi-arrow-down-circle"></i> Issues History
+          </a>
+        </li>
+
+        <!-- Stock -->
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'stock_alerts' %}active{% endif %}" href="{% url 'stock_alerts' %}">
+            <i class="bi bi-exclamation-triangle"></i> Stock Alert
+          </a>
+        </li>
+
+        <!-- Reports Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name in 'daily_issue_report daily_sales_report monthly_sales_report' %}active{% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-bar-chart-line"></i> Reports
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="{% url 'daily_issue_report' %}">
+                <i class="bi bi-calendar-day"></i> Daily Issue Report
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'daily_sales_report' %}">
+                <i class="bi bi-cash-stack"></i> Daily Sales Report
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'monthly_sales_report' %}">
+                <i class="bi bi-calendar3"></i> Monthly Sales Report
+              </a>
+            </li>
+
+          </ul>
+        </li>
+        <li class="nav-item">
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-link nav-link  style="display:inline; padding:0;">
+                    Logout <i class="bi bi-box-arrow-right"></i>
+                </button>
+            </form>
+        </li>
+        {% endif %}
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Container -->
+<div class="container mt-4">
+    {% block content %}{% endblock %}
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+{% extends 'products/base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <div class="row mb-4">
+        <!-- Total Products -->
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-primary shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Total Products</h5>
+                    <h3>{{ total_products }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Stock Quantity -->
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-success shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Total Stock</h5>
+                    <h3>{{ total_stock }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Issued Today -->
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-warning shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Issued Today</h5>
+                    <h3>{{ total_issued_today }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Low Stock Alerts -->
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-danger shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Low Stock</h5>
+                    <h3>{{ low_stock.count }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Issues and Returns -->
+    <div class="row">
+        <!-- Recent Issues -->
+        <div class="col-lg-6 mb-3">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    Recent Issues
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in recent_issues %}
+                            <tr>
+                                <td>{{ i.product.name }}</td>
+                                <td>{{ i.issued_quantity }}</td>
+                                <td>{{ i.issued_date|date:"Y-m-d H:i" }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr><td colspan="3">No issues yet</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Returns -->
+        <div class="col-lg-6 mb-3">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    Recent Returns
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for r in recent_returns %}
+                            <tr>
+                                <td>{{ r.product.name }}</td>
+                                <td>{{ r.return_quantity }}</td>
+                                <td>{{ r.return_date|date:"Y-m-d H:i" }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr><td colspan="3">No returns yet</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
