@@ -31,7 +31,7 @@
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
                     <td>{{ product.name }}</td>
-                    <td>${{ product.unit_price|floatformat:2 }}</td>
+                    <td>{{ product.unit_price|floatformat:2 }} BDT</td>
                     <td>
                         {% if product.quantity > 10 %}
                             <span class="badge bg-success">{{ product.quantity }}</span>
@@ -41,8 +41,8 @@
                             <span class="badge bg-danger">Out of stock</span>
                         {% endif %}
                     </td>
-                    <td>${{ product.total_price|floatformat:2 }}</td>
-                    <td>{{ product.created_date|date:"Y-m-d H:i" }}</td>
+                    <td>{{ product.total_price|floatformat:2 }} BDT</td>
+                    <td>{{ product.created_date|date:"Y-m-d H:i A" }}</td>
                     <td class="text-center">
                         <a href="{% url 'issue_product' product.id %}" class="btn btn-sm btn-warning me-1">Issue</a>
                         <a href="{% url 'product_update' product.id %}" class="btn btn-sm btn-primary me-1">Edit</a>

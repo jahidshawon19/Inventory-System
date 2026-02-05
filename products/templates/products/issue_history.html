@@ -20,7 +20,7 @@
                     <th scope="row">{{ forloop.counter }}</th>
                     <td>{{ i.product.name }}</td>
                     <td>{{ i.issued_quantity }}</td>
-                    <td>{{ i.issued_date|date:"Y-m-d H:i" }}</td>
+                    <td>{{ i.issued_date|date:"Y-m-d H:i A" }}</td>
                 </tr>
                 {% empty %}
                 <tr>
