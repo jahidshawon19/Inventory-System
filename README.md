@@ -49,3 +49,29 @@ password: admin
 ---
 
 ## 📁 Project Structure
+
+inventory/
+│
+├── inventory/ # Main project settings
+├── products/ # Main app
+│ ├── models.py
+│ ├── views.py
+│ ├── urls.py
+│ ├── templates/
+│ └── forms.py
+│
+├── db.sqlite3
+└── manage.py
+
+
+---
+
+## ⚙️ Installation
+
+### 1️⃣ Clone Repository
+```bash
+git clone https://github.com/your-username/inventory-system.git
+cd inventory-system
+
+python -m venv venv
+venv\Scripts\activate   # Windows
